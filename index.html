@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HANUMATRIX | AI-Accelerated Business Systems</title>
+    <meta name="description"
+        content="HANUMATRIX builds AI-accelerated business systems. One-time investment. Full ownership.">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Agnifa';
+            src: url('HMX_assets/agnifa.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+
+        
+        .logo .logo-icon, .nav-logo .logo-icon {
+            height: 56px;
+            width: auto;
+            object-fit: contain;
+            object-position: left center;
+            transition: opacity 0.3s;
+        }
+
+        .logo .logo-text, .nav-logo .logo-text {
+            height: 80px;
+            width: auto;
+            object-fit: contain;
+            object-position: left center;
+            transition: opacity 0.3s;
+        }
+
+        html[data-theme="light"] {
+            --bg-deep: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: rgba(15, 23, 42, 0.7);
+            --text-muted: rgba(15, 23, 42, 0.5);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(0, 0, 0, 0.05);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        html[data-theme="light"] .logo-text,
+        html[data-theme="light"] .nav-logo .logo-text {
+            filter: brightness(0) saturate(100%);
+        }
+
+        html[data-theme="light"] .video-fade {
+            background: radial-gradient(circle at center, transparent 0%, var(--bg-deep) 100%), linear-gradient(to bottom, transparent 60%, var(--bg-deep) 100%);
+        }
+        
+        html[data-theme="light"] .video-bg video {
+            opacity: 0.15;
+            mix-blend-mode: multiply;
+        }
+
+        html[data-theme="light"] .nav-bar {
+            background: rgba(248, 250, 252, 0.5);
+        }
+        
+        html[data-theme="light"] .hero-badge {
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        html[data-theme="light"] .card-icon {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        :root {
+            --bg-deep: #070612;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --amber: #d4a017;
+            --emerald: #10b981;
+            --cyan: #06b6d4;
+            --font-sans: 'Inter', sans-serif;
+            --font-serif: 'Agnifa', serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+            /* Apple Glassmorphism tokens */
+            --glass-blur: blur(24px);
+            --glass-bg: rgba(20, 20, 25, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ::selection {
+            background: var(--amber);
+            color: var(--bg-deep);
+        }
+
+        /* Nav */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 0 48px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(7, 6, 18, 0.5);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        
+        
+        
+
+
+        .nav-contact {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+
+        .nav-contact:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-contact i {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Video Background */
+        .video-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+            transform: scale(1.1);
+        }
+
+        .video-fade {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, var(--bg-deep) 100%), linear-gradient(to bottom, transparent 60%, var(--bg-deep) 100%);
+            z-index: 1;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            z-index: 10;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 160px 24px 80px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 32px;
+            animation: blurIn 0.6s ease-out forwards;
+        }
+
+        .hero-badge i {
+            width: 14px;
+            height: 14px;
+            color: var(--amber);
+        }
+
+        .hero h1 {
+            font-family: var(--font-sans);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 500;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            max-width: 900px;
+        }
+
+        .hero h1 .serif {
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: var(--amber);
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            animation: blurIn 0.6s ease-out 0.4s forwards;
+            opacity: 0;
+            font-weight: 400;
+        }
+
+        /* Animated text split */
+        .word-wrap {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: bottom;
+            padding-bottom: 4px;
+        }
+
+        .word {
+            display: inline-block;
+            transform: translateY(100%);
+            opacity: 0;
+            animation: slideUpWord 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes slideUpWord {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes blurIn {
+            from {
+                opacity: 0;
+                filter: blur(10px);
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                filter: blur(0);
+                transform: translateY(0);
+            }
+        }
+
+        /* Audience Cards */
+        .cards-section {
+            position: relative;
+            z-index: 10;
+            padding: 0 48px 120px;
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .audience-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: 20px;
+            padding: 40px 32px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s var(--ease);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s var(--ease) forwards;
+        }
+
+        .audience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.4s var(--ease);
+            z-index: 0;
+        }
+
+        .audience-card.manufacturing::before {
+            background: radial-gradient(circle at top right, rgba(212, 160, 23, 0.15), transparent 70%);
+        }
+
+        .audience-card.realestate::before {
+            background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.15), transparent 70%);
+        }
+
+        .audience-card.international::before {
+            background: radial-gradient(circle at top right, rgba(6, 182, 212, 0.15), transparent 70%);
+        }
+
+        .audience-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .audience-card:hover::before {
+            opacity: 1;
+        }
+
+        .audience-card>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .manufacturing .card-icon {
+            color: var(--amber);
+        }
+
+        .realestate .card-icon {
+            color: var(--emerald);
+        }
+
+        .international .card-icon {
+            color: var(--cyan);
+        }
+
+        .card-icon i {
+            width: 24px;
+            height: 24px;
+        }
+
+        .audience-card h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+        }
+
+        .audience-card .card-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 32px;
+            flex: 1;
+        }
+
+        .card-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .card-features li {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .manufacturing .card-features i {
+            color: var(--amber);
+            width: 16px;
+            height: 16px;
+        }
+
+        .realestate .card-features i {
+            color: var(--emerald);
+            width: 16px;
+            height: 16px;
+        }
+
+        .international .card-features i {
+            color: var(--cyan);
+            width: 16px;
+            height: 16px;
+        }
+
+        .card-cta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: auto;
+            transition: gap 0.3s var(--ease);
+        }
+
+        .manufacturing .card-cta {
+            color: var(--amber);
+        }
+
+        .realestate .card-cta {
+            color: var(--emerald);
+        }
+
+        .international .card-cta {
+            color: var(--cyan);
+        }
+
+        .audience-card:hover .card-cta {
+            gap: 14px;
+        }
+
+        .card-cta i {
+            width: 16px;
+            height: 16px;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.7s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.8s;
+        }
+
+        /* Footer */
+        .footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 48px 24px;
+            border-top: 1px solid var(--glass-border);
+            background: rgba(7, 6, 18, 0.8);
+            backdrop-filter: var(--glass-blur);
+        }
+
+        .footer-logo {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-family: var(--font-mono);
+        }
+
+        .footer-contact {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-bar {
+                padding: 0 24px;
+                height: 80px;
+            }
+
+            .nav-logo .logo-icon {
+                height: 40px;
+            }
+
+            .nav-logo .logo-text {
+                height: 56px;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero {
+                padding: 120px 24px 60px;
+            }
+
+            .cards-section {
+                padding: 0 24px 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-bar {
+                height: 64px;
+            }
+
+            .nav-logo .logo-icon {
+                height: 32px;
+            }
+
+            .nav-logo .logo-text {
+                height: 44px;
+            }
+
+            .hero h1 {
+                font-size: clamp(1.8rem, 7vw, 3rem);
+            }
+
+            .hero {
+                padding: 100px 24px 60px;
+            }
+
+            .nav-contact span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="video-bg">
+        <video id="hls-video" autoplay loop muted playsinline crossorigin="anonymous"></video>
+        <div class="video-fade"></div>
+    </div>
+
+        <nav class="nav-bar">
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <a href="/" class="nav-logo" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+                <img src="HMX_assets/HMX_logo_white.png" alt="Hanumatrix Logo Icon" class="logo-icon"
+                    onerror="this.style.display='none'">
+                <img src="HMX_assets/HMX_White.png" alt="Hanumatrix Text" class="logo-text"
+                    onerror="this.style.display='none'">
+            </a>
+        </div>
+        <div style="display: flex; align-items: center; gap: 24px;">
+            <button id="theme-toggle" class="nav-contact" aria-label="Toggle Theme" style="background:none; border:none; cursor:pointer;">
+                <i data-lucide="sun" class="light-icon" style="display:none;"></i>
+                <i data-lucide="moon" class="dark-icon"></i>
+            </button>
+            <a href="mailto:connect@hanumatrix.com" class="nav-contact">
+                <i data-lucide="mail"></i> connect@hanumatrix.com
+            </a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-badge">
+            <i data-lucide="sparkles"></i> Business Systems You Own
+        </div>
+        <h1>
+            <span class="word-wrap"><span class="word" style="animation-delay: 0.08s">Automate</span></span>
+            <span class="word-wrap"><span class="word" style="animation-delay: 0.16s">Operations,</span></span><br>
+            <span class="word-wrap"><span class="word" style="animation-delay: 0.24s">Eliminate</span></span>
+            <span class="word-wrap"><span class="word" style="animation-delay: 0.32s">SaaS</span></span>
+            <span class="word-wrap"><span class="word serif" style="animation-delay: 0.40s">Rent.</span></span>
+        </h1>
+        <p class="hero-desc">
+            AI-accelerated ERP, CRM, and automation engines built specifically for your industry. Delivered in weeks,
+            owned by you forever. Select your domain below.
+        </p>
+    </header>
+
+    <section class="cards-section">
+        <div class="cards-grid">
+            <a href="manufacturing/index.html" class="audience-card manufacturing delay-1">
+                <div class="card-icon"><i data-lucide="factory"></i></div>
+                <h2>Manufacturing<br>Operations</h2>
+                <p class="card-desc">Replace manual workflows and rented SaaS with a phased, owned ERP system. Built for
+                    Indian factory realities.</p>
+                <ul class="card-features">
+                    <li><i data-lucide="check"></i> Quotation routing & margins</li>
+                    <li><i data-lucide="check"></i> Intelligent inventory tracking</li>
+                    <li><i data-lucide="check"></i> 14-day modular sprints</li>
+                </ul>
+                <div class="card-cta">Explore Manufacturing <i data-lucide="arrow-right"></i></div>
+            </a>
+
+            <a href="realestate/index.html" class="audience-card realestate delay-2">
+                <div class="card-icon"><i data-lucide="building-2"></i></div>
+                <h2>Real Estate<br>Operations</h2>
+                <p class="card-desc">Unify lead management, payment tracking, and project monitoring into one system.
+                    Stop stitching together 5 tools.</p>
+                <ul class="card-features">
+                    <li><i data-lucide="check"></i> Lead & conversion pipelines</li>
+                    <li><i data-lucide="check"></i> RERA-ready payment tracking</li>
+                    <li><i data-lucide="check"></i> Dedicated broker portals</li>
+                </ul>
+                <div class="card-cta">Explore Real Estate <i data-lucide="arrow-right"></i></div>
+            </a>
+
+            <a href="international/index.html" class="audience-card international delay-3">
+                <div class="card-icon"><i data-lucide="server"></i></div>
+                <h2>International<br>Partners</h2>
+                <p class="card-desc">Your dedicated Frappe/ERPNext backend capacity. Complex API integrations and Python
+                    logic — delivered 3x faster.</p>
+                <ul class="card-features">
+                    <li><i data-lucide="check"></i> AI-accelerated Frappe code</li>
+                    <li><i data-lucide="check"></i> White-label agency delivery</li>
+                    <li><i data-lucide="check"></i> Pristine GitHub hygiene</li>
+                </ul>
+                <div class="card-cta">Explore International <i data-lucide="arrow-right"></i></div>
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-logo">HANUMATRIX Pvt. Ltd. · 2026</div>
+        <div class="footer-contact">
+            <a href="mailto:connect@hanumatrix.com">connect@hanumatrix.com</a>
+            <span>·</span>
+            <span>Pune, Maharashtra</span>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Theme toggle logic
+        const constThemeToggle = document.getElementById('theme-toggle');
+        const lightIcon = document.querySelector('.light-icon');
+        const darkIcon = document.querySelector('.dark-icon');
+        const logoIcon = document.querySelector('.logo-icon');
+        const logoText = document.querySelector('.logo-text');
+
+        function setTheme(isDark) {
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            
+            // Toggle icons
+            if (isDark) {
+                lightIcon.style.display = 'none';
+                darkIcon.style.display = 'block';
+                logoIcon.src = 'HMX_assets/HMX_logo_white.png';
+            } else {
+                lightIcon.style.display = 'block';
+                darkIcon.style.display = 'none';
+                logoIcon.src = 'HMX_assets/HMX_logo_black.png';
+            }
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Init theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        setTheme(savedTheme === 'dark');
+
+        constThemeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            setTheme(!isDark);
+        });
+
+
+
+        // HLS Video initialization
+        const video = document.getElementById('hls-video');
+        const videoSrc = 'https://stream.mux.com/s8pMcOvMQXc4GD6AX4e1o01xFogFxipmuKltNfSYza0200.m3u8';
+
+        if (Hls.isSupported()) {
+            const hls = new Hls({ capLevelToPlayerSize: true });
+            hls.loadSource(videoSrc);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                video.play().catch(e => console.log("Video autoplay blocked:", e));
+            });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = videoSrc;
+            video.addEventListener('loadedmetadata', function () {
+                video.play().catch(e => console.log("Video autoplay blocked:", e));
+            });
+        }
+    </script>
+</body>
+
+</html>

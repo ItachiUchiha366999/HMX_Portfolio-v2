@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HANUMATRIX | AI-Accelerated Operations for Manufacturers</title>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Agnifa';
+      src: url('../HMX_assets/agnifa.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    
+        .logo .logo-icon, .nav-logo .logo-icon {
+            height: 56px;
+            width: auto;
+            object-fit: contain;
+            object-position: left center;
+            transition: opacity 0.3s;
+        }
+
+        .logo .logo-text, .nav-logo .logo-text {
+            height: 80px;
+            width: auto;
+            object-fit: contain;
+            object-position: left center;
+            transition: opacity 0.3s;
+        }
+
+        html[data-theme="light"] {
+      --bg-deep: #f8fafc;
+      --bg-surface: rgba(0, 0, 0, 0.02);
+      --bg-elevated: rgba(0, 0, 0, 0.04);
+      --text-primary: #0f172a;
+      --text-secondary: rgba(15, 23, 42, 0.7);
+      --text-muted: rgba(15, 23, 42, 0.5);
+      --border: rgba(0, 0, 0, 0.08);
+      --border-strong: rgba(0, 0, 0, 0.15);
+      --glass-bg: rgba(255, 255, 255, 0.8);
+      --glass-border: rgba(0, 0, 0, 0.05);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    html[data-theme="light"] .logo-text,
+    html[data-theme="light"] .nav-logo .logo-text {
+      filter: brightness(0) saturate(100%);
+    }
+
+    html[data-theme="light"] .sidebar {
+      background: rgba(248, 250, 252, 0.9);
+    }
+
+    html[data-theme="light"] .hero-fade {
+      background: linear-gradient(to top, var(--bg-deep) 0%, transparent 100%);
+    }
+
+    html[data-theme="light"] .hero-fade-left {
+      background: linear-gradient(to right, var(--bg-deep) 20%, transparent 100%);
+    }
+
+    html[data-theme="light"] .hero-video {
+      opacity: 0.15;
+      mix-blend-mode: multiply;
+    }
+
+    html[data-theme="light"] .hero h1 {
+      color: #0f172a;
+    }
+
+    html[data-theme="light"] .hero-subtitle {
+      color: rgba(15, 23, 42, 0.8);
+    }
+
+    html[data-theme="light"] .hero-badge {
+      background: rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: #0f172a;
+    }
+
+    html[data-theme="light"] .btn-primary {
+      background: #0f172a;
+      color: #ffffff;
+    }
+
+    html[data-theme="light"] .btn-secondary {
+      background: rgba(0, 0, 0, 0.05);
+      color: #0f172a;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    html[data-theme="light"] .cta-banner {
+      background: radial-gradient(circle at center, rgba(212, 160, 23, 0.1), transparent 70%), rgba(255, 255, 255, 0.8);
+    }
+
+    :root {
+      --bg-deep: #070612;
+      --bg-surface: rgba(255, 255, 255, 0.02);
+      --bg-elevated: rgba(255, 255, 255, 0.04);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.7);
+      --text-muted: rgba(255, 255, 255, 0.5);
+      --accent: #d4a017;
+      --accent-dim: rgba(212, 160, 23, 0.15);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.15);
+      --font-sans: 'Inter', sans-serif;
+      --font-display: 'Inter', sans-serif;
+      --font-serif: 'Agnifa', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --sidebar-w: 260px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+      /* Apple Glassmorphism tokens */
+      --glass-blur: blur(24px);
+      --glass-bg: rgba(20, 20, 25, 0.4);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg-deep);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      border-radius: 16px;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--sidebar-w);
+      height: 100vh;
+      background: rgba(7, 6, 18, 0.6);
+      backdrop-filter: var(--glass-blur);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.4s var(--ease);
+    }
+
+    .sidebar-header {
+      padding: 32px 24px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    
+
+    
+
+    .logo-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+    }
+
+    .nav-menu {
+      list-style: none;
+      padding: 16px 0;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: all 0.25s var(--ease);
+      border-left: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .nav-link.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .nav-link i {
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+    }
+
+    .nav-link.active i {
+      opacity: 1;
+    }
+
+    .mobile-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 200;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--border-strong);
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .mobile-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--text-primary);
+      border-radius: 1px;
+      transition: all 0.3s var(--ease);
+    }
+
+    .mobile-toggle.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .mobile-toggle.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .mobile-toggle.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 90;
+    }
+
+    .main {
+      margin-left: var(--sidebar-w);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Hero Section Specifics */
+    .hero {
+      height: 100vh;
+      height: 100svh;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding: 0 48px;
+    }
+
+    /* Video Background */
+    .hero-video-wrapper {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      margin-left: 15%;
+    }
+
+    .hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.2);
+      transform-origin: left;
+      opacity: 0.6;
+    }
+
+    /* Bottom fade gradient */
+    .hero-fade {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: linear-gradient(to top, var(--bg-deep) 0%, transparent 100%);
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .hero-fade-left {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 40%;
+      background: linear-gradient(to right, var(--bg-deep) 20%, transparent 100%);
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Glass Badge */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      width: fit-content;
+      animation: blurIn 0.6s ease-out forwards;
+      opacity: 0;
+    }
+
+    .hero-badge i {
+      width: 14px;
+      height: 14px;
+      color: var(--accent);
+    }
+
+    /* Headline */
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 500;
+      line-height: 1.15;
+      color: #fff;
+      letter-spacing: -1px;
+    }
+
+    .hero h1 .block {
+      display: block;
+    }
+
+    .hero h1 .serif {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+      padding-left: 12px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.7;
+      max-width: 560px;
+      font-weight: 400;
+      margin-top: 8px;
+      margin-bottom: 16px;
+      animation: blurIn 0.6s ease-out 0.4s forwards;
+      opacity: 0;
+    }
+
+    /* CTA Buttons */
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      animation: blurIn 0.6s ease-out 0.6s forwards;
+      opacity: 0;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: #fff;
+      color: #000;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-primary i {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-primary:hover i {
+      transform: translateX(4px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 32px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      font-weight: 500;
+      font-size: 14px;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Animated text split */
+    .word-wrap {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+      padding-bottom: 4px;
+    }
+
+    .word {
+      display: inline-block;
+      transform: translateY(100%);
+      opacity: 0;
+      animation: slideUpWord 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes slideUpWord {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes blurIn {
+      from {
+        opacity: 0;
+        filter: blur(10px);
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+      }
+    }
+
+    /* Structural Sections */
+    .section {
+      min-height: 100vh;
+      padding: 120px 80px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 10;
+      background: var(--bg-deep);
+    }
+
+    .section-inner {
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      font-family: var(--font-mono);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 24px;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 680px;
+      line-height: 1.8;
+      margin-bottom: 60px;
+    }
+
+    /* Unified Glass Cards */
+    .grid-layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      padding: 32px;
+      transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(212, 160, 23, 0.08), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .icon-box {
+      width: 44px;
+      height: 44px;
+      background: rgba(212, 160, 23, 0.1);
+      border: 1px solid rgba(212, 160, 23, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      color: var(--accent);
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .feature-list i {
+      width: 14px;
+      height: 14px;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+
+    /* Ownership Comparison Table */
+    .comp-container {
+      margin-top: 60px;
+    }
+
+    .comp-table {
+      width: 100%;
+      min-width: 560px;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .comp-table th,
+    .comp-table td {
+      padding: 24px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comp-table th {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      font-weight: 600;
+      border-top: 1px solid var(--border);
+    }
+
+    .comp-table th.col-hmx {
+      background: rgba(212, 160, 23, 0.05);
+      color: var(--accent);
+      border-top-color: var(--accent);
+      border-radius: 8px 8px 0 0;
+    }
+
+    .comp-table td.col-hmx {
+      background: rgba(212, 160, 23, 0.05);
+      border-left: 1px solid rgba(212, 160, 23, 0.1);
+      border-right: 1px solid rgba(212, 160, 23, 0.1);
+    }
+
+    .comp-table tr:last-child td.col-hmx {
+      border-radius: 0 0 8px 8px;
+      border-bottom: 1px solid rgba(212, 160, 23, 0.1);
+    }
+
+    .comp-table td {
+      font-size: 0.95rem;
+    }
+
+    .comp-label {
+      font-weight: 600;
+    }
+
+    .comp-x {
+      color: #f87171;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .comp-check {
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    /* Timeline Process */
+    .process-timeline {
+      position: relative;
+      padding-left: 40px;
+      margin-top: 40px;
+    }
+
+    .process-timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--border) 80%);
+    }
+
+    .step {
+      position: relative;
+      padding-bottom: 56px;
+    }
+
+    .step:last-child {
+      padding-bottom: 0;
+    }
+
+    .step-marker {
+      position: absolute;
+      left: -40px;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-deep);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      z-index: 2;
+      box-shadow: 0 0 0 4px var(--bg-deep);
+    }
+
+    .step-content {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 24px 32px;
+      transition: transform 0.3s ease;
+    }
+
+    .step-content:hover {
+      transform: translateX(8px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .step-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .step-time {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 500;
+      background: rgba(212, 160, 23, 0.1);
+      padding: 4px 10px;
+      border-radius: 99px;
+    }
+
+    .step-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* CTA Section Banner */
+    .cta-banner {
+      padding: 64px;
+      text-align: center;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 80px;
+      border: 1px solid rgba(212, 160, 23, 0.3);
+      background: radial-gradient(circle at center, rgba(212, 160, 23, 0.1), transparent 70%), rgba(20, 20, 25, 0.6);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .cta-banner h2 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .cta-banner p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 0 auto 32px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    @media (max-width: 1024px) {
+
+      .section,
+      .hero {
+        padding: 80px 40px;
+      }
+
+      .hero-video-wrapper {
+        margin-left: 0;
+      }
+
+      .hero-fade-left {
+        width: 100%;
+        background: rgba(7, 6, 18, 0.7);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .mobile-toggle {
+        display: flex;
+      }
+
+      .main {
+        margin-left: 0;
+      }
+
+      .section,
+      .hero {
+        padding: 100px 24px 60px;
+      }
+
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+
+      .comp-table th,
+      .comp-table td {
+        padding: 16px;
+        font-size: 0.85rem;
+      }
+
+      .step-content {
+        padding: 20px;
+      }
+
+      .cta-banner {
+        padding: 40px 20px;
+      }
+
+      .cta-banner h2 {
+        font-size: 1.5rem;
+      }
+
+      .step-content:hover {
+        transform: none;
+      }
+
+      .logo .logo-icon {
+        height: 40px;
+      }
+
+      .logo .logo-text {
+        height: 56px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.9rem;
+        letter-spacing: -0.5px;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .logo .logo-icon {
+        height: 32px;
+      }
+
+      .logo .logo-text {
+        height: 44px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <button class="mobile-toggle" id="mobileToggle"
+    aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  <div class="overlay" id="overlay"></div>
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html" class="logo" style="text-decoration: none;">
+        <img src="../HMX_assets/HMX_logo_white.png" alt="Hanumatrix Logo Icon" class="logo-icon"
+          onerror="this.style.display='none'">
+        <img src="../HMX_assets/HMX_White.png" alt="Hanumatrix Text" class="logo-text"
+          onerror="this.style.display='none'">
+      </a>
+      <div class="logo-sub">Manufacturing</div>
+    </div>
+    <ul class="nav-menu">
+      <li><a href="#hero" class="nav-link active" data-section="hero"><i
+            data-lucide="layout-dashboard"></i><span>Home</span></a></li>
+      <li><a href="#challenge" class="nav-link" data-section="challenge"><i data-lucide="alert-triangle"></i><span>The
+            Challenge</span></a></li>
+      <li><a href="#solutions" class="nav-link" data-section="solutions"><i data-lucide="cpu"></i><span>Automation
+            Solutions</span></a></li>
+      <li><a href="#ownership" class="nav-link" data-section="ownership"><i data-lucide="shield-check"></i><span>Own vs
+            Rent</span></a></li>
+      <li><a href="#process" class="nav-link" data-section="process"><i
+            data-lucide="route"></i><span>Implementation</span></a></li>
+      <li><a href="#contact" class="nav-link" data-section="contact"><i data-lucide="mail"></i><span>Book
+            Call</span></a></li>
+    </ul>
+
+    <div class="sidebar-footer" style="padding: 24px;">
+      <button id="theme-toggle" class="nav-link" aria-label="Toggle Theme"
+        style="width: 100%; border: none; background: transparent; justify-content: flex-start; margin: 0; padding: 12px 24px; margin-left: -24px; position: relative; cursor: pointer; text-decoration: none;">
+        <i data-lucide="sun" class="light-icon" style="display:none;"></i>
+        <i data-lucide="moon" class="dark-icon"></i>
+        <span class="theme-text" style="margin-left: -4px;">Light Mode</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="main" id="main">
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero-video-wrapper">
+        <video id="hls-video" class="hero-video" autoplay loop muted playsinline crossorigin="anonymous"></video>
+      </div>
+      <div class="hero-fade-left"></div>
+      <div class="hero-fade"></div>
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i data-lucide="sparkles"></i> New AI Automation Ally
+        </div>
+
+                <h1>
+          <span class="word-wrap"><span class="word" style="animation-delay: 0.08s">Automate</span></span>
+          <span class="word-wrap"><span class="word" style="animation-delay: 0.16s">Operations,</span></span><br>
+          <span class="word-wrap"><span class="word" style="animation-delay: 0.24s">Eliminate</span></span>
+          <span class="word-wrap"><span class="word" style="animation-delay: 0.32s">SaaS</span></span>
+          <span class="word-wrap"><span class="word serif" style="animation-delay: 0.40s">Rent.</span></span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Our cutting-edge AI platform automates, analyzes, and accelerates your manufacturing workflows so you can
+          focus on scale and profitability, without the burden of SaaS rent.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="#contact" class="btn-primary">
+            Book A Free Call <i data-lucide="arrow-right"></i>
+          </a>
+          <a href="#solutions" class="btn-secondary">
+            Learn More
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Challenge Section -->
+    <section class="section" id="challenge">
+      <div class="section-inner">
+        <span class="section-label reveal">Current State</span>
+        <h2 class="section-title reveal delay-1">Operations Running on Duct Tape.</h2>
+        <p class="section-subtitle reveal delay-2">
+          Indian manufacturing is scaling rapidly, but internal operations are trapped in the past. Relying on WhatsApp,
+          disjointed spreadsheets, and rented software creates severe bottlenecks.
+        </p>
+
+        <div class="grid-layout">
+          <div class="glass-panel feature-card reveal">
+            <div class="icon-box"><i data-lucide="blocks"></i></div>
+            <h3>Disconnected Systems</h3>
+            <p>Your sales team uses one CRM, inventory is on Tally, and production relies on Excel. Data silos cause
+              invisible revenue leakage and critical delays.</p>
+          </div>
+          <div class="glass-panel feature-card reveal delay-1">
+            <div class="icon-box"><i data-lucide="receipt"></i></div>
+            <h3>The SaaS Rent Trap</h3>
+            <p>Scaling standard ERPs means punishing per-user pricing. You pay forever for software you do not own,
+              effectively taxing your own growth.</p>
+          </div>
+          <div class="glass-panel feature-card reveal delay-2">
+            <div class="icon-box"><i data-lucide="hourglass"></i></div>
+            <h3>Manual Bottlenecks</h3>
+            <p>Purchase approvals take days. Quotations are prone to margin errors. Lack of automated guardrails means
+              the business depends entirely on the founder's daily intervention.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Expanded Solutions Section -->
+    <section class="section" id="solutions">
+      <div class="section-inner">
+        <span class="section-label reveal">The Blueprint</span>
+        <h2 class="section-title reveal delay-1">Comprehensive AI Automation Solutions</h2>
+        <p class="section-subtitle reveal delay-2">
+          We do not sell boxed software. We build specific, owned operational engines tailored to the workflows of
+          Indian factories. Delivered in weeks, not years.
+        </p>
+
+        <div class="grid-layout">
+          <div class="glass-panel feature-card reveal">
+            <div class="icon-box"><i data-lucide="calculator"></i></div>
+            <h3>Automated Quotation Engine</h3>
+            <p>Eliminate estimation errors and reduce quote generation from days to minutes. Factor in live raw material
+              costs and target margins instantly.</p>
+            <ul class="feature-list">
+              <li><i data-lucide="check"></i> Multi-level BOM support</li>
+              <li><i data-lucide="check"></i> Automated margin guardrails</li>
+              <li><i data-lucide="check"></i> PDF auto-generation</li>
+            </ul>
+          </div>
+
+          <div class="glass-panel feature-card reveal delay-1">
+            <div class="icon-box"><i data-lucide="bar-chart-3"></i></div>
+            <h3>Intelligent Inventory & Procurement</h3>
+            <p>Stop stockouts and dead inventory. AI-driven reorder levels and automated purchase workflows based on
+              active production plans.</p>
+            <ul class="feature-list">
+              <li><i data-lucide="check"></i> Vendor portal access</li>
+              <li><i data-lucide="check"></i> Auto PO generation</li>
+              <li><i data-lucide="check"></i> Multi-warehouse tracking</li>
+            </ul>
+          </div>
+
+          <div class="glass-panel feature-card reveal delay-2">
+            <div class="icon-box"><i data-lucide="clipboard-list"></i></div>
+            <h3>Shop Floor Tracking</h3>
+            <p>Real-time visibility into machine utilization and worker output. Track WIP inventory instantly without
+              waiting for end-of-day reports.</p>
+            <ul class="feature-list">
+              <li><i data-lucide="check"></i> Digital job cards</li>
+              <li><i data-lucide="check"></i> Downtime analytics</li>
+              <li><i data-lucide="check"></i> Quality control gates</li>
+            </ul>
+          </div>
+
+          <div class="glass-panel feature-card reveal">
+            <div class="icon-box"><i data-lucide="repeat"></i></div>
+            <h3>Custom CRM & Order Management</h3>
+            <p>Track leads from inquiry to final dispatch. Unified timeline of client communications, approvals, and
+              delivery milestones.</p>
+            <ul class="feature-list">
+              <li><i data-lucide="check"></i> Automated follow-ups</li>
+              <li><i data-lucide="check"></i> Sales commission tracking</li>
+              <li><i data-lucide="check"></i> Customer portal</li>
+            </ul>
+          </div>
+
+          <div class="glass-panel feature-card reveal delay-1">
+            <div class="icon-box"><i data-lucide="banknote"></i></div>
+            <h3>Financial & Tally Sync</h3>
+            <p>Seamless integration with your existing accounting systems. Automate invoicing and sync ledgers without
+              double data entry.</p>
+            <ul class="feature-list">
+              <li><i data-lucide="check"></i> GST e-Invoicing</li>
+              <li><i data-lucide="check"></i> Payment reminders</li>
+              <li><i data-lucide="check"></i> Real-time cashflow views</li>
+            </ul>
+          </div>
+
+          <div class="glass-panel feature-card reveal delay-2">
+            <div class="icon-box"><i data-lucide="network"></i></div>
+            <h3>FastTrack Legacy Migration</h3>
+            <p>Moving away from outdated systems safely. We ensure data integrity and zero operational downtime during
+              the transition.</p>
+            <ul class="feature-list">
+              <li><i data-lucide="check"></i> Secure data extraction</li>
+              <li><i data-lucide="check"></i> Field mapping & clean up</li>
+              <li><i data-lucide="check"></i> Parallel run testing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Own vs Rent (Ownership) Section -->
+    <section class="section" id="ownership">
+      <div class="section-inner">
+        <span class="section-label reveal">The Core Philosophy</span>
+        <h2 class="section-title reveal delay-1">Stop Paying Rent. Own Your System.</h2>
+        <p class="section-subtitle reveal delay-2">
+          You own your factory, your machines, and your land. So why rent the digital infrastructure that runs it? Our
+          open-source foundation guarantees independence.
+        </p>
+
+        <div class="comp-container reveal delay-3">
+          <div class="glass-panel" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+            <table class="comp-table">
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Traditional SaaS ERP</th>
+                  <th class="col-hmx">Hanumatrix Owned System</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="comp-label">Licensing Costs</td>
+                  <td><span class="comp-x"><i data-lucide="x-circle"></i> ₹3,000 to ₹10,000 / user / month</span></td>
+                  <td class="col-hmx"><span class="comp-check"><i data-lucide="check-circle-2"></i> ₹0 per user
+                      forever</span></td>
+                </tr>
+                <tr>
+                  <td class="comp-label">Customization</td>
+                  <td><span class="comp-x"><i data-lucide="x-circle"></i> Rigid workflows, high modification
+                      costs</span></td>
+                  <td class="col-hmx"><span class="comp-check"><i data-lucide="check-circle-2"></i> Infinitely adaptable
+                      code ownership</span></td>
+                </tr>
+                <tr>
+                  <td class="comp-label">Vendor Lock-In</td>
+                  <td><span class="comp-x"><i data-lucide="x-circle"></i> High data hostage risk</span></td>
+                  <td class="col-hmx"><span class="comp-check"><i data-lucide="check-circle-2"></i> Full database access
+                      & portability</span></td>
+                </tr>
+                <tr>
+                  <td class="comp-label">Implementation Speed</td>
+                  <td><span class="comp-x"><i data-lucide="x-circle"></i> 6 to 18 months</span></td>
+                  <td class="col-hmx"><span class="comp-check"><i data-lucide="check-circle-2"></i> Starts adding value
+                      in 14 Days</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="section" id="process">
+      <div class="section-inner">
+        <span class="section-label reveal">Deployment Timeline</span>
+        <h2 class="section-title reveal delay-1">Rapid, AI-Accelerated Delivery</h2>
+        <p class="section-subtitle reveal delay-2">
+          Traditional ERP implementations fail because they try to do everything at once. We use agile sprints and AI
+          coding to deliver modular wins securely and swiftly.
+        </p>
+
+        <div class="process-timeline reveal delay-3">
+          <div class="step">
+            <div class="step-marker">1</div>
+            <div class="step-content">
+              <div class="step-title">Technical Discovery <span class="step-time">Days 1-3</span></div>
+              <p class="step-desc">Deep dive into your most critical bottlenecks. We map your AS-IS state and define the
+                exact scope of the first sprint to guarantee rapid ROI.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-marker">2</div>
+            <div class="step-content">
+              <div class="step-title">System Architecture & AI Coding <span class="step-time">Days 4-10</span></div>
+              <p class="step-desc">Using proprietary AI protocols, we build the backend logic, custom DocTypes, and API
+                connectors 3x faster than conventional developers.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-marker">3</div>
+            <div class="step-content">
+              <div class="step-title">UAT & Process Alignment <span class="step-time">Days 11-13</span></div>
+              <p class="step-desc">Your core team tests the precise workflows. Adjustments are made dynamically. We
+                train your champions on the new interface.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-marker">4</div>
+            <div class="step-content">
+              <div class="step-title">Deployment & Handoff <span class="step-time">Day 14</span></div>
+              <p class="step-desc">System goes live. Source code and infrastructure keys are transferred to you. You are
+                completely independent, with our ongoing support on standby.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+      <div class="section-inner">
+        <div class="cta-banner reveal">
+          <h2>Ready for System Independence?</h2>
+          <p>Book a technical discovery call today. We will map a specific operations sprint for your factory, without
+            any commitment.</p>
+          <a href="mailto:connect@hanumatrix.com" class="btn-primary" style="padding: 14px 32px; font-size: 16px;">
+            Schedule Discovery Call <i data-lucide="calendar"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // HLS Video initialization
+    const video = document.getElementById('hls-video');
+    const videoSrc = 'https://stream.mux.com/s8pMcOvMQXc4GD6AX4e1o01xFogFxipmuKltNfSYza0200.m3u8';
+
+    if (Hls.isSupported()) {
+      const hls = new Hls({
+        capLevelToPlayerSize: true,
+        maxBufferLength: 30
+      });
+      hls.loadSource(videoSrc);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        video.play().catch(e => console.log("Video autoplay blocked:", e));
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      // Safari support
+      video.src = videoSrc;
+      video.addEventListener('loadedmetadata', function () {
+        video.play().catch(e => console.log("Video autoplay blocked:", e));
+      });
+    }
+
+    // Scroll reveal logic
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Nav active state
+    const sections = document.querySelectorAll('.section, .hero');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').includes(current)) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Mobile sidebar toggle
+    const toggle = document.getElementById('mobileToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    function toggleMenu() {
+      sidebar.classList.toggle('open');
+      toggle.classList.toggle('open');
+      overlay.style.display = overlay.style.display === 'block' ? 'none' : 'block';
+    }
+
+    toggle.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    // Theme toggle logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const lightIcon = document.querySelector('.light-icon');
+    const darkIcon = document.querySelector('.dark-icon');
+    const logoIcon = document.querySelector('.logo-icon');
+    const logoText = document.querySelector('.logo-text');
+    const themeText = document.querySelector('.theme-text');
+
+    function setTheme(isDark) {
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      if (isDark) {
+        lightIcon.style.display = 'none';
+        darkIcon.style.display = 'block';
+        logoIcon.src = '../HMX_assets/HMX_logo_white.png';
+        if (themeText) themeText.textContent = 'Light Mode';
+      } else {
+        lightIcon.style.display = 'block';
+        darkIcon.style.display = 'none';
+        logoIcon.src = '../HMX_assets/HMX_logo_black.png';
+        if (themeText) themeText.textContent = 'Dark Mode';
+      }
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme === 'dark');
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      setTheme(!isDark);
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+        if (window.innerWidth <= 768) toggleMenu();
+      });
+    });
+  </script>
+</body>
+
+</html>
